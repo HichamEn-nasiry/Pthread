@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fonctions pthreads en C</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Fonctions pthreads en C</h1>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_create</h2>
+                <p class="card-text">
+                    <code>int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine)(void *), void *arg)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction crée un nouveau thread. Elle prend comme arguments un pointeur vers un identificateur de thread (<code>pthread_t *</code>), des attributs du thread (<code>pthread_attr_t *</code>), une fonction qui sera exécutée par le thread (<code>void *(*start_routine)(void *)</code>), et un argument optionnel qui sera passé à la fonction du thread (<code>void *arg</code>).
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_join</h2>
+                <p class="card-text">
+                    <code>int pthread_join(pthread_t thread, void **retval)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction suspend l'exécution du thread appelant jusqu'à ce que le thread spécifié par <code>thread</code> se termine. Elle renvoie la valeur de sortie du thread dans <code>retval</code>, qui peut être récupérée par le thread appelant.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_exit</h2>
+                <p class="card-text">
+                    <code>void pthread_exit(void *retval)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction termine l'exécution du thread en cours et renvoie une valeur de sortie (<code>retval</code>) facultative. La valeur de sortie peut être récupérée par d'autres threads en utilisant la fonction <code>pthread_join</code>.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_mutex_t</h2>
+                <p class="card-text">
+                    <code>typedef struct pthread_mutex_t pthread_mutex_t;</code>
+                </p>
+                <p class="card-text">
+                    Le type <code>pthread_mutex_t</code> représente un mutex (verrou) utilisé pour la synchronisation entre les threads. Un mutex permet d'éviter les problèmes de concurrence lorsqu'un certain nombre de threads tentent d'accéder simultanément à une ressource partagée.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_mutex_lock</h2>
+                <p class="card-text">
+                    <code>int pthread_mutex_lock(pthread_mutex_t *mutex)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction acquiert un verrou mutex spécifié par <code>mutex</code>. Si le mutex est déjà verrouillé par un autre thread, le thread en cours sera mis en attente jusqu'à ce que le verrou soit disponible.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_mutex_unlock</h2>
+                <p class="card-text">
+                    <code>int pthread_mutex_unlock(pthread_mutex_t *mutex)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction libère un verrou mutex spécifié par <code>mutex</code>. Si d'autres threads attendent le verrou, l'un d'entre eux sera choisi pour acquérir le verrou.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_barrier_t</h2>
+                <p class="card-text">
+                    <code>typedef struct pthread_barrier_t pthread_barrier_t;</code>
+                </p>
+                <p class="card-text">
+                    Le type <code>pthread_barrier_t</code> représente une barrière de synchronisation utilisée pour bloquer l'exécution des threads jusqu'à ce qu'un certain nombre de threads atteignent la barrière.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_barrier_init</h2>
+                <p class="card-text">
+                    <code>int pthread_barrier_init(pthread_barrier_t *barrier, const pthread_barrierattr_t *attr, unsigned int count)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction initialise une barrière de synchronisation spécifiée par <code>barrier</code>. Elle prend également un attribut de barrière optionnel (<code>pthread_barrierattr_t *</code>) et le nombre de threads nécessaires pour dépasser la barrière (<code>count</code>).
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_barrier_wait</h2>
+                <p class="card-text">
+                    <code>int pthread_barrier_wait(pthread_barrier_t *barrier)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction bloque l'exécution du thread appelant jusqu'à ce que le nombre requis de threads atteigne la barrière. Lorsque le nombre requis de threads est atteint, tous les threads sont libérés simultanément.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_cond_t</h2>
+                <p class="card-text">
+                    <code>typedef struct pthread_cond_t pthread_cond_t;</code>
+                </p>
+                <p class="card-text">
+                    Le type <code>pthread_cond_t</code> représente une variable de condition utilisée pour la synchronisation entre les threads. Une variable de condition permet à un thread de suspendre son exécution jusqu'à ce qu'une condition particulière soit satisfaite.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_cond_wait</h2>
+                <p class="card-text">
+                    <code>int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction bloque l'exécution du thread appelant jusqu'à ce que la variable de condition spécifiée par <code>cond</code> soit signalée par un autre thread. L'appel à cette fonction nécessite un verrou mutex spécifié par <code>mutex</code>, qui sera temporairement relâché pendant l'attente.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2 class="card-title">pthread_cond_signal</h2>
+                <p class="card-text">
+                    <code>int pthread_cond_signal(pthread_cond_t *cond)</code>
+                </p>
+                <p class="card-text">
+                    Cette fonction envoie un signal à la variable de condition spécifiée par <code>cond</code>. Si plusieurs threads attendent sur cette variable de condition, un seul thread est choisi pour être réveillé.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
