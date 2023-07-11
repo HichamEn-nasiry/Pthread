@@ -3,10 +3,37 @@
 <head>
     <title>Fonctions pthreads en C</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        .card-body {
-            display: none;
+        body {
+            background-color: #f2f2f2;
+            color: #333333;
         }
+        
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: impeccable;
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .card-body {
+            background-color: #f9f9f9;
+            color: #555555;
+        }
+        
+        .active-card .card-header {
+            background-color: #eeff00;
+        }
+        
         .active-card .card-body {
             display: block;
         }
@@ -18,11 +45,12 @@
 
         <div class="accordion mt-5" id="accordionFunctions">
 
+            <!-- pthread_create -->
             <div class="card">
                 <div class="card-header" id="headingCreate">
                     <h2 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCreate" aria-expanded="false" aria-controls="collapseCreate">
-                            pthread_create
+                            <i class="fas fa-chevron-down"></i> pthread_create
                         </button>
                     </h2>
                 </div>
@@ -37,11 +65,12 @@
                 </div>
             </div>
 
+            <!-- pthread_join -->
             <div class="card">
                 <div class="card-header" id="headingJoin">
                     <h2 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseJoin" aria-expanded="false" aria-controls="collapseJoin">
-                            pthread_join
+                            <i class="fas fa-chevron-down"></i> pthread_join
                         </button>
                     </h2>
                 </div>
@@ -56,11 +85,12 @@
                 </div>
             </div>
 
+            <!-- pthread_exit -->
             <div class="card">
                 <div class="card-header" id="headingExit">
                     <h2 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseExit" aria-expanded="false" aria-controls="collapseExit">
-                            pthread_exit
+                            <i class="fas fa-chevron-down"></i> pthread_exit
                         </button>
                     </h2>
                 </div>
@@ -75,116 +105,122 @@
                 </div>
             </div>
 
+            <!-- pthread_cancel -->
             <div class="card">
-                <div class="card-header" id="headingMutexLock">
+                <div class="card-header" id="headingCancel">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseMutexLock" aria-expanded="false" aria-controls="collapseMutexLock">
-                            pthread_mutex_lock
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCancel" aria-expanded="false" aria-controls="collapseCancel">
+                            <i class="fas fa-chevron-down"></i> pthread_cancel
                         </button>
                     </h2>
                 </div>
 
-                <div id="collapseMutexLock" class="card-body collapse" aria-labelledby="headingMutexLock" data-parent="#accordionFunctions">
+                <div id="collapseCancel" class="card-body collapse" aria-labelledby="headingCancel" data-parent="#accordionFunctions">
                     <p>
-                        <code>int pthread_mutex_lock(pthread_mutex_t *mutex)</code>
+                        <code>int pthread_cancel(pthread_t thread)</code>
                     </p>
                     <p>
-                        Cette fonction acquiert un verrou mutex spécifié par <code>mutex</code>. Si le mutex est déjà verrouillé par un autre thread, le thread en cours sera mis en attente jusqu'à ce que le verrou soit disponible.
+                        Cette fonction envoie une demande d'annulation du thread spécifié par <code>thread</code>. L'annulation n'est pas garantie et dépend de l'état d'annulabilité du thread. Si l'annulation est effectuée, le thread se termine immédiatement.
                     </p>
                 </div>
             </div>
 
+            <!-- pthread_mutex_init -->
             <div class="card">
-                <div class="card-header" id="headingMutexUnlock">
+                <div class="card-header" id="headingMutexInit">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseMutexUnlock" aria-expanded="false" aria-controls="collapseMutexUnlock">
-                            pthread_mutex_unlock
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseMutexInit" aria-expanded="false" aria-controls="collapseMutexInit">
+                            <i class="fas fa-chevron-down"></i> pthread_mutex_init
                         </button>
                     </h2>
                 </div>
 
-                <div id="collapseMutexUnlock" class="card-body collapse" aria-labelledby="headingMutexUnlock" data-parent="#accordionFunctions">
+                <div id="collapseMutexInit" class="card-body collapse" aria-labelledby="headingMutexInit" data-parent="#accordionFunctions">
                     <p>
-                        <code>int pthread_mutex_unlock(pthread_mutex_t *mutex)</code>
+                        <code>int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)</code>
                     </p>
                     <p>
-                        Cette fonction libère un verrou mutex spécifié par <code>mutex</code>. Si d'autres threads attendent le verrou, l'un d'entre eux sera choisi pour acquérir le verrou.
+                        Cette fonction initialise un verrou mutex spécifié par <code>mutex</code>. Elle peut également prendre un attribut de verrou mutex optionnel (<code>pthread_mutexattr_t *</code>) pour personnaliser le comportement du verrou.
                     </p>
                 </div>
             </div>
 
+            <!-- pthread_cond_init -->
             <div class="card">
-                <div class="card-header" id="headingBarrierInit">
+                <div class="card-header" id="headingCondInit">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBarrierInit" aria-expanded="false" aria-controls="collapseBarrierInit">
-                            pthread_barrier_init
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCondInit" aria-expanded="false" aria-controls="collapseCondInit">
+                            <i class="fas fa-chevron-down"></i> pthread_cond_init
                         </button>
                     </h2>
                 </div>
 
-                <div id="collapseBarrierInit" class="card-body collapse" aria-labelledby="headingBarrierInit" data-parent="#accordionFunctions">
+                <div id="collapseCondInit" class="card-body collapse" aria-labelledby="headingCondInit" data-parent="#accordionFunctions">
                     <p>
-                        <code>int pthread_barrier_init(pthread_barrier_t *barrier, const pthread_barrierattr_t *attr, unsigned int count)</code>
+                        <code>int pthread_cond_init(pthread_cond_t *cond, const pthread_condattr_t *attr)</code>
                     </p>
                     <p>
-                        Cette fonction initialise une barrière de synchronisation spécifiée par <code>barrier</code>. Elle prend également un attribut de barrière optionnel (<code>pthread_barrierattr_t *</code>) et le nombre de threads nécessaires pour dépasser la barrière (<code>count</code>).
+                        Cette fonction initialise une variable de condition spécifiée par <code>cond</code>. Elle peut également prendre un attribut de variable de condition optionnel (<code>pthread_condattr_t *</code>) pour personnaliser le comportement de la variable.
                     </p>
                 </div>
             </div>
 
+            <!-- pthread_mutex_destroy -->
             <div class="card">
-                <div class="card-header" id="headingBarrierWait">
+                <div class="card-header" id="headingMutexDestroy">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBarrierWait" aria-expanded="false" aria-controls="collapseBarrierWait">
-                            pthread_barrier_wait
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseMutexDestroy" aria-expanded="false" aria-controls="collapseMutexDestroy">
+                            <i class="fas fa-chevron-down"></i> pthread_mutex_destroy
                         </button>
                     </h2>
                 </div>
 
-                <div id="collapseBarrierWait" class="card-body collapse" aria-labelledby="headingBarrierWait" data-parent="#accordionFunctions">
+                <div id="collapseMutexDestroy" class="card-body collapse" aria-labelledby="headingMutexDestroy" data-parent="#accordionFunctions">
                     <p>
-                        <code>int pthread_barrier_wait(pthread_barrier_t *barrier)</code>
+                        <code>int pthread_mutex_destroy(pthread_mutex_t *mutex)</code>
                     </p>
                     <p>
-                        Cette fonction bloque l'exécution du thread appelant jusqu'à ce que le nombre requis de threads atteigne la barrière. Lorsque le nombre requis de threads est atteint, tous les threads sont libérés simultanément.
+                        Cette fonction détruit un verrou mutex spécifié par <code>mutex</code>. Elle libère les ressources associées au verrou après son utilisation. Il est important de détruire les verrous inutilisés pour éviter les fuites de mémoire.
                     </p>
                 </div>
             </div>
 
+            <!-- pthread_cond_destroy -->
             <div class="card">
-                <div class="card-header" id="headingCondWait">
+                <div class="card-header" id="headingCondDestroy">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCondWait" aria-expanded="false" aria-controls="collapseCondWait">
-                            pthread_cond_wait
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCondDestroy" aria-expanded="false" aria-controls="collapseCondDestroy">
+                            <i class="fas fa-chevron-down"></i> pthread_cond_destroy
                         </button>
                     </h2>
                 </div>
 
-                <div id="collapseCondWait" class="card-body collapse" aria-labelledby="headingCondWait" data-parent="#accordionFunctions">
+                <div id="collapseCondDestroy" class="card-body collapse" aria-labelledby="headingCondDestroy" data-parent="#accordionFunctions">
                     <p>
-                        <code>int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex)</code>
+                        <code>int pthread_cond_destroy(pthread_cond_t *cond)</code>
                     </p>
                     <p>
-                        Cette fonction bloque l'exécution du thread appelant jusqu'à ce que la variable de condition spécifiée par <code>cond</code> soit signalée par un autre thread. L'appel à cette fonction nécessite un verrou mutex spécifié par <code>mutex</code>, qui sera temporairement relâché pendant l'attente.
+                        Cette fonction détruit une variable de condition spécifiée par <code>cond</code>. Elle libère les ressources associées à la variable après son utilisation. Il est important de détruire les variables de condition inutilisées pour éviter les fuites de mémoire.
                     </p>
                 </div>
             </div>
 
+            <!-- pthread_barrier_destroy -->
             <div class="card">
-                <div class="card-header" id="headingCondSignal">
+                <div class="card-header" id="headingBarrierDestroy">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCondSignal" aria-expanded="false" aria-controls="collapseCondSignal">
-                            pthread_cond_signal
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBarrierDestroy" aria-expanded="false" aria-controls="collapseBarrierDestroy">
+                            <i class="fas fa-chevron-down"></i> pthread_barrier_destroy
                         </button>
                     </h2>
                 </div>
 
-                <div id="collapseCondSignal" class="card-body collapse" aria-labelledby="headingCondSignal" data-parent="#accordionFunctions">
+                <div id="collapseBarrierDestroy" class="card-body collapse" aria-labelledby="headingBarrierDestroy" data-parent="#accordionFunctions">
                     <p>
-                        <code>int pthread_cond_signal(pthread_cond_t *cond)</code>
+                        <code>int pthread_barrier_destroy(pthread_barrier_t *barrier)</code>
                     </p>
                     <p>
-                        Cette fonction envoie un signal à la variable de condition spécifiée par <code>cond</code>. Si plusieurs threads attendent sur cette variable de condition, un seul thread est choisi pour être réveillé.
+                        Cette fonction détruit une barrière de synchronisation spécifiée par <code>barrier</code>. Elle libère les ressources associées à la barrière après son utilisation. Il est important de détruire les barrières inutilisées pour éviter les fuites de mémoire.
                     </p>
                 </div>
             </div>
@@ -201,6 +237,18 @@
                 this.parentElement.classList.toggle("active-card");
             });
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".card-header").click(function() {
+                $(this).toggleClass("active-card");
+                var chevronDown = $(this).find(".fa-chevron-down");
+                var chevronUp = $(this).find(".fa-chevron-up");
+                chevronDown.toggle();
+                chevronUp.toggle();
+            });
+        });
     </script>
 </body>
 </html>
